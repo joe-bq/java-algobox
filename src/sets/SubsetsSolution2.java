@@ -2,6 +2,8 @@ package sets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
+import java.util.Arrays;
 
 /*
 Given a collection of integers that might contain duplicates, S, return all possible subsets.
@@ -38,10 +40,31 @@ this is a dynamic/recursive solution.
  */
 public class SubsetsSolution2 {
 
-	
+	/*
+	 * the solution is to keep a BookKeeper, which keeps how many of each number should appear in the list.
+	 * Size of the bookkeeper is length + 1 (where length is total distinct numbers)
+	 * 
+	 * so the book keeper shall increase like this (suppose the input is [1,2,2], where we have distict number set [1, 2], and their counts [1, 2] (1 of 1s, and 2 of 2s);
+	 *   [0, 0, 0]
+	 *   
+	 *  next iteration would be 
+	 *  
+	 *  [1, 0, 0]
+	 *  
+	 *  and next iteration would be 
+	 *  
+	 *  [0, 1, 0]
+	 *  
+	 *  until, the termination condition 
+	 *  
+	 *  [0, 0, 1]
+	 *  
+	 *  
+	 */
 	public List<List<Integer>> subsetsWithDup(int[] num) { 
 		
-		sort(num);
+//		sort(num);
+		Arrays.sort(num);
 		
 		int[] values = new int[num.length];
 		int[] counts = new int[num.length];
@@ -75,11 +98,11 @@ public class SubsetsSolution2 {
 		}
 		
 		
-		boolean  end = false;
+//		boolean  end = false;
 		while (bookkeeper[length] == 0) {
 			for (int i = 0; i <= counts[0]; i++) { 
 				bookkeeper[0] = i;
-				ret.add(produce(num, bookkeeper, length));
+				ret.add(produce(values, bookkeeper, length));
 			}
 			
 			int next = 1;
@@ -180,8 +203,10 @@ public class SubsetsSolution2 {
 		}
 		*/
 		
-		int length = 3;
-		int[] nums = { 1, 2, 2 };
+//		int length = 3;
+//		int[] nums = { 1, 2, 2 };
+		int length = 4;
+		int[] nums = {1, 1, 2, 2};
 		
 		SubsetsSolution2 solution = new SubsetsSolution2();
 		List<List<Integer>> sets = solution.subsetsWithDup(nums);
